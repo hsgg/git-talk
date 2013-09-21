@@ -1,0 +1,102 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{lmodern} % get rid of fontsize warning
+\usepackage{tikz}
+%\usetikzlibrary{calc,chains,shapes,positioning}
+\usepackage{pgfplots}
+\usepackage{verbatim}
+\usepackage{amsmath}
+\usepackage{textpos}
+\usepackage{graphicx}
+\usepackage[normalem]{ulem}
+%\usepackage[colorlinks=false,pdfborder={0 0 0}]{hyperref}
+
+
+
+\title{git - the stupid content tracker}
+\subtitle{git eats trees. version control with git is fun. too much fun}
+\author{Henry S. G. Gebhardt}
+%\institute[The Pennsylvania State University]
+%{Department of Astronomy and Astrophysics}
+%\date{February 26, 2013}
+
+
+
+\newcommand{\comp}[1]{{\tt #1}}
+
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section[Outline]{}
+\frame{
+    \frametitle{Outline}
+    \tableofcontents
+}
+
+
+\section{Introduction to Version Control}
+\frame{
+    \frametitle{Version Control? Version Control.}
+
+    \begin{itemize}
+        \item Save history.
+        \item See what changed.
+        \item Share code.
+        \item Merge code.
+        \item Don't be a git.
+        \item \ldots
+    \end{itemize}
+
+    Git, Mercurial, Bazaar, \sout{SVN}, \sout{CVS}, \ldots
+}
+
+
+\section{Theory}
+\frame{
+    \frametitle{Git Theory}
+
+    Distributed, not centralized.
+
+    History is a DAG (directed acyclic graph).
+}
+
+
+\section{git commands}
+\frame{
+    \frametitle{git help command}
+
+    Useful commands to know where you are:
+
+    \begin{description}[Other]
+        \item[git status] Where am I?
+        \item[git diff] What have I done?
+        \item[git diff --cached] What will I do?
+        \item[git log] Captain's log.
+        \item[gitk --all] Let's climb a tree!
+    \end{description}
+}
+\frame{
+    \frametitle{Trees, yum!}
+
+    Branches are cheap!
+
+    \begin{description}
+        \item[git branch <name>] Let's make a new branch.
+        \item[git branch -d] Never mind.
+        \item[git checkout <name>] Let's climb over to that branch.
+        \item[git checkout -b <newname> <starthere>] Checkout and make a new branch.
+        \item[git merge <otherbranches>...] Let's eat some trees!
+    \end{description}
+}
+
+
+
+\end{document}
+
+
+% vim: set sw=4 sts=4 et:
