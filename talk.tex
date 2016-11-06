@@ -17,7 +17,7 @@
 
 
 \title{git - the stupid content tracker}
-\subtitle{git eats trees. version control with git is fun. too much fun}
+\subtitle{git eats trees. version control with git is fun.}
 \author{Henry S. G. Gebhardt}
 %\institute[The Pennsylvania State University]
 %{Department of Astronomy and Astrophysics}
@@ -52,7 +52,10 @@
         \item \ldots
     \end{itemize}
 
-    Git, Mercurial, Bazaar, \sout{SVN}, \sout{CVS}, \ldots
+    Git, Mercurial, \sout{Bazaar}, \sout{SVN} (why bother?), \sout{CVS},
+    \sout{Monotone}, \sout{DARCS}, \ldots
+
+    ``Theory of Patches''
 }
 
 
@@ -60,9 +63,11 @@
 \frame{
     \frametitle{Git Theory}
 
-    Distributed, not centralized.
+    History is a DAG (directed acyclic graph). \emph{Explain graph.}
+    \bigskip
 
-    History is a DAG (directed acyclic graph).
+    Distributed, not centralized. \emph{Every clone has the full history.}
+    \bigskip
 
     There are \emph{plumbing} commands and \emph{porcelain} commands.
 }
@@ -70,20 +75,74 @@
 
 \section{git commands}
 \frame{
+    \frametitle{git cheat sheet}
+
+    Here's the \emph{porcelain}:
+    \bigskip
+
+    \url{https://services.github.com/kit/downloads/github-git-cheat-sheet.pdf}
+    \vfill
+    Initialization once per machine:\\
+    \hspace{1cm}Create the file {\tt \char`~/.gitconfig}.
+}
+
+
+\frame{
+    \frametitle{Initial checkout}
+    Existing repository:
+    {\tt\\
+        \hspace{0.3cm}\$ git clone ssh://git@git.psu.edu/hsg113/thesis.git
+    }
+    \vfill
+    New repository:
+    {\tt\\
+        \hspace{1cm}\$ mkdir newrepo; cd newrepo\\
+        \hspace{1cm}\$ git init
+    }
+}
+
+
+\frame{
     \frametitle{git help command}
 
-    Useful commands to know where you are:
+    Useful commands:
 
     \begin{description}[Other]
         \item[git status] Where am I?
-        \item[git diff] What have I done?
-        \item[git diff --cached] What will I do?
-        \item[git log] Captain's log.
-        \item[gitk --all] Let's climb a tree!
+        \item[git diff] What did I just do?
+        \item[git diff -$\,$-staged] What will I do?
+        \item[git log] What have I done?
+        \item[gitk -$\,$-all] Let's climb trees!
+        \item[git describe -$\,$-always -$\,$-tags] Who am I?
     \end{description}
 }
+
+\frame{
+    \frametitle{blobs, trees, and commits are identified by their SHA1-sum}
+
+    A hash is a (hopefully) unique number to identify some information, like a
+    file.
+    \medskip
+
+    SHA1 is such a 256-bit number. It happens to be cryptographically secure.
+    \medskip
+
+    blobs, trees, and commits are identified by their SHA1 sum.
+    \medskip
+
+    \begin{itemize}
+        \item[blob:] content in a file
+        \item[treeish:] the directory structure, and the SHA1's of all blobs
+        \item[commit:] the new tree SHA1's, the commit message, and all parent
+            commits
+    \end{itemize}
+
+    $\Rightarrow$ efficient de-duplication and compression
+}
+
 \frame{
     \frametitle{Trees, yum!}
+    \framesubtitle{git eats trees\ldots nom,nom}
 
     Branches are cheap!
 
@@ -92,8 +151,47 @@
         \item[git branch -d] Never mind.
         \item[git checkout <name>] Let's climb over to that branch.
         \item[git checkout -b <newname> <starthere>] Checkout and make a new branch.
-        \item[git merge <otherbranches>...] Let's eat some trees!
+        \item[git merge <otherbranches>...] Trees eating trees!
+        \item[git rebase -i <branchname>] I hate trees!
     \end{description}
+}
+
+
+\frame{
+    \frametitle{Pushing and pulling}
+    {\tt
+        \hspace{1cm}\$ git push \\
+        \hspace{1cm}\$ cd \char`~/repos/newawesomeproject.git\\
+        \hspace{1cm}\$ git init -$\,$-bare
+    }
+}
+
+
+\frame{
+    \frametitle{Play with me!}
+    \begin{center}
+        {\tt \$ git svn}
+        \vfill
+        Works by calling ``{\tt git fast-import}''.
+    \end{center}
+}
+
+
+\frame{
+    \frametitle{Other commands}
+
+    Create your own git server via ssh:
+    {\tt\\
+        \hspace{1cm}\$ mkdir -p \char`~/repos/newawesomeproject.git\\
+        \hspace{1cm}\$ cd \char`~/repos/newawesomeproject.git\\
+        \hspace{1cm}\$ git init -$\,$-bare
+    }
+    \vfill
+    More fine-grained control: \url{http://gitolite.com/gitolite/}
+    \vfill
+    Hooks: {\tt man githooks}; {\tt cd .git/hooks/}
+    \vfill
+    Rewrite history: {\tt  git filter-branch}
 }
 
 
