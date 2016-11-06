@@ -45,10 +45,9 @@
 
     \begin{itemize}
         \item Save history.
-        \item See what changed.
-        \item Share code.
+        \item Keep track of changes.
         \item Merge code.
-        \item Don't be a git.
+        \item Don't be a git. Share code.
         \item \ldots
     \end{itemize}
 
@@ -56,12 +55,19 @@
     \sout{Monotone}, \sout{DARCS}, \ldots
 
     ``Theory of Patches''
+
+    What is a patch?
 }
 
 
 \section{Theory}
 \frame{
     \frametitle{Git Theory}
+
+    \begin{center}
+        \url{git-scm.org}
+    \end{center}
+    \bigskip
 
     History is a DAG (directed acyclic graph). \emph{Explain graph.}
     \bigskip
@@ -72,6 +78,34 @@
     There are \emph{plumbing} commands and \emph{porcelain} commands.
 }
 
+\frame{
+    \frametitle{Git doesn't know about files\ldots whaaat?}
+
+    Git only knows content. (blobs)
+    \bigskip
+
+    And how that content is assembled. (trees)
+    \bigskip
+
+    And history. (commits)
+}
+
+
+\frame{
+    \frametitle{blobs, trees, and commits are identified by their SHA1-sum}
+
+    A hash is a (hopefully) unique number to identify some information, like a
+    file.
+    \medskip
+
+    SHA-1 is a 160-bit number. It happens to be cryptographically secure.
+    \medskip
+
+    Blobs, trees, and commits are identified by their SHA1 sum.
+    \medskip
+
+    $\Rightarrow$ Efficient de-duplication and compression
+}
 
 \section{git commands}
 \frame{
@@ -91,7 +125,7 @@
     \frametitle{Initial checkout}
     Existing repository:
     {\tt\\
-        \hspace{0.3cm}\$ git clone ssh://git@git.psu.edu/hsg113/thesis.git
+        \hspace{0.3cm}\$ git clone ssh://git@git.psu.edu/hsg113/test.git
     }
     \vfill
     New repository:
@@ -118,29 +152,6 @@
 }
 
 \frame{
-    \frametitle{blobs, trees, and commits are identified by their SHA1-sum}
-
-    A hash is a (hopefully) unique number to identify some information, like a
-    file.
-    \medskip
-
-    SHA1 is such a 256-bit number. It happens to be cryptographically secure.
-    \medskip
-
-    blobs, trees, and commits are identified by their SHA1 sum.
-    \medskip
-
-    \begin{itemize}
-        \item[blob:] content in a file
-        \item[treeish:] the directory structure, and the SHA1's of all blobs
-        \item[commit:] the new tree SHA1's, the commit message, and all parent
-            commits
-    \end{itemize}
-
-    $\Rightarrow$ efficient de-duplication and compression
-}
-
-\frame{
     \frametitle{Trees, yum!}
     \framesubtitle{git eats trees\ldots nom,nom}
 
@@ -152,7 +163,7 @@
         \item[git checkout <name>] Let's climb over to that branch.
         \item[git checkout -b <newname> <starthere>] Checkout and make a new branch.
         \item[git merge <otherbranches>...] Trees eating trees!
-        \item[git rebase -i <branchname>] I hate trees!
+        \item[git rebase -i <branchname>] Clean up your history!
     \end{description}
 }
 
@@ -160,9 +171,10 @@
 \frame{
     \frametitle{Pushing and pulling}
     {\tt
-        \hspace{1cm}\$ git push \\
-        \hspace{1cm}\$ cd \char`~/repos/newawesomeproject.git\\
-        \hspace{1cm}\$ git init -$\,$-bare
+        \hspace{1cm}\$ git push <remote> <localbranch>:<remotebranch> \\
+        \hspace{1cm}\$ git push -$\,$-set-upstream \\
+        \hspace{1cm}\$ git pull \\
+        \hspace{1cm}\$ git remote -v \\
     }
 }
 
@@ -178,19 +190,47 @@
 
 
 \frame{
-    \frametitle{Other commands}
-
-    Create your own git server via ssh:
-    {\tt\\
+    \frametitle{Hosting your git repository}
+    Others:
+    \begin{itemize}
+        \itemindent3em
+        \item[Github:] \url{github.com}, \url{gitorious.com}, \ldots
+        \item[PSU:] \url{git.psu.edu}
+    \end{itemize}
+    \bigskip
+    Your own:
+    \begin{itemize}
+        \itemindent3em
+        \item[SSH server:] \url{hartmann.astro.psu.edu}, \ldots your own workstation
+        \item[SSH server:] \url{http://gitolite.com/gitolite/} (probably overkill)
+    \end{itemize}
+    \bigskip
+    {\tt
         \hspace{1cm}\$ mkdir -p \char`~/repos/newawesomeproject.git\\
         \hspace{1cm}\$ cd \char`~/repos/newawesomeproject.git\\
         \hspace{1cm}\$ git init -$\,$-bare
     }
-    \vfill
-    More fine-grained control: \url{http://gitolite.com/gitolite/}
-    \vfill
+}
+
+
+\frame{
+    \frametitle{Other commands}
+
+    Graphs: {\tt git log -$\,$-graph}
+    \bigskip
+
+    More graphs: {\tt gitk -$\,$-all}
+    \bigskip
+
+    Tags: {\tt git tag}
+    \bigskip
+
     Hooks: {\tt man githooks}; {\tt cd .git/hooks/}
-    \vfill
+    \bigskip
+
+    Submodules: {\tt git submodule}
+    \bigskip
+
     Rewrite history: {\tt  git filter-branch}
 }
 
