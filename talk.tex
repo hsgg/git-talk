@@ -128,6 +128,10 @@
     \bigskip
 
     \url{https://services.github.com/kit/downloads/github-git-cheat-sheet.pdf}
+    \bigskip
+
+    {\tt man gittutorial}
+
     \vfill
     Initialization once per machine:\\
     \hspace{1cm}Create the file {\tt \char`~/.gitconfig}.
@@ -161,6 +165,24 @@
         \item[git log] What have I done?
         \item[gitk -$\,$-all] Let's climb trees!
         \item[git describe -$\,$-always -$\,$-tags] Who am I?
+    \end{description}
+}
+
+\frame{
+    \frametitle{Commits}
+    \begin{description}[Other]
+        \item[git add <file>] Add your changes to the index.
+        \item[git add -p] Be selective about what to add.
+        \item[git commit] Commit your changes.
+    \end{description}
+}
+
+\frame{
+    \frametitle{Sending and receiving patches}
+    \begin{description}[Other]
+        \item[git format-patch] Create a patch
+        \item[git send-email] Send an entire set of patches as emails.
+        \item[git am, git apply] Apply other people's patches.
     \end{description}
 }
 
