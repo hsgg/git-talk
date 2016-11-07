@@ -65,7 +65,7 @@
     \frametitle{Git Theory}
 
     \begin{center}
-        \url{git-scm.org}
+        \url{https://git-scm.com}
     \end{center}
     \bigskip
 
@@ -106,6 +106,19 @@
 
     $\Rightarrow$ Efficient de-duplication and compression
 }
+
+
+\frame{
+    \frametitle{Terminology: blah, blah, blah,\ldots}
+    WORKDIR \\
+    GITDIR \\
+    HEAD \\
+    Index \\
+    Local repository \\
+    Upstream repository \\
+    Stash
+}
+
 
 \section{git commands}
 \frame{
@@ -180,6 +193,11 @@
 
 
 \frame{
+    \frametitle{Workflow}
+}
+
+
+\frame{
     \frametitle{Play with me!}
     \begin{center}
         {\tt \$ git svn}
@@ -214,6 +232,13 @@
 
 
 \frame{
+    \frametitle{Ah, I did something stupid\ldots}
+
+    Recovery might be possible by looking into {\tt .git/logs/}.
+}
+
+
+\frame{
     \frametitle{Other commands}
 
     Graphs: {\tt git log -$\,$-graph}
@@ -232,6 +257,9 @@
     \bigskip
 
     Rewrite history: {\tt  git filter-branch}
+    \bigskip
+
+    Collect garbage: {\tt git gc}
 }
 
 
