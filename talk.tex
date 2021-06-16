@@ -1,0 +1,282 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{lmodern} % get rid of fontsize warning
+\usepackage{tikz}
+%\usetikzlibrary{calc,chains,shapes,positioning}
+\usepackage{pgfplots}
+\usepackage{verbatim}
+\usepackage{amsmath}
+\usepackage{textpos}
+\usepackage{graphicx}
+\usepackage[normalem]{ulem}
+%\usepackage[colorlinks=false,pdfborder={0 0 0}]{hyperref}
+
+
+
+\title{git - the stupid content tracker}
+\subtitle{git eats trees. version control with git is fun.}
+\author{Henry S. G. Gebhardt}
+%\institute[The Pennsylvania State University]
+%{Department of Astronomy and Astrophysics}
+%\date{February 26, 2013}
+
+
+
+\newcommand{\comp}[1]{{\tt #1}}
+
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section[Outline]{}
+\frame{
+    \frametitle{Outline}
+    \tableofcontents
+}
+
+
+\section{Introduction to Version Control}
+\frame{
+    \frametitle{Version Control? Version Control.}
+
+    \begin{itemize}
+        \item Save history.
+        \item Keep track of changes.
+        \item Merge code.
+        \item Don't be a git. Share code.
+        \item \ldots
+    \end{itemize}
+
+    Git, Mercurial, \sout{Bazaar}, \sout{SVN} (why bother?), \sout{CVS},
+    \sout{Monotone}, \sout{DARCS}, \ldots
+
+    ``Theory of Patches''
+
+    What is a patch?
+}
+
+
+\section{Theory}
+\frame{
+    \frametitle{Git Theory}
+
+    \begin{center}
+        \url{https://git-scm.com}
+    \end{center}
+    \bigskip
+
+    History is a DAG (directed acyclic graph). \emph{Explain graph.}
+    \bigskip
+
+    Distributed, not centralized. \emph{Every clone has the full history.}
+    \bigskip
+
+    There are \emph{plumbing} commands and \emph{porcelain} commands.
+}
+
+\frame{
+    \frametitle{Git doesn't know about files\ldots whaaat?}
+
+    Git only knows content. (blobs)
+    \bigskip
+
+    And how that content is assembled. (trees)
+    \bigskip
+
+    And history. (commits)
+}
+
+
+\frame{
+    \frametitle{blobs, trees, and commits are identified by their SHA1-sum}
+
+    A hash is a (hopefully) unique number to identify some information, like a
+    file.
+    \medskip
+
+    SHA-1 is a 160-bit number. It happens to be cryptographically secure.
+    \medskip
+
+    Blobs, trees, and commits are identified by their SHA1 sum.
+    \medskip
+
+    $\Rightarrow$ Efficient de-duplication and compression
+}
+
+
+\frame{
+    \frametitle{Terminology: blah, blah, blah,\ldots}
+    WORKDIR \\
+    GITDIR \\
+    HEAD \\
+    Index \\
+    Local repository \\
+    Upstream repository \\
+    Stash
+}
+
+
+\section{git commands}
+\frame{
+    \frametitle{git cheat sheet}
+
+    Here's the \emph{porcelain}:
+    \bigskip
+
+    \url{https://services.github.com/kit/downloads/github-git-cheat-sheet.pdf}
+    \vfill
+    Initialization once per machine:\\
+    \hspace{1cm}Create the file {\tt \char`~/.gitconfig}.
+}
+
+
+\frame{
+    \frametitle{Initial checkout}
+    Existing repository:
+    {\tt\\
+        \hspace{0.3cm}\$ git clone ssh://git@git.psu.edu/hsg113/test.git
+    }
+    \vfill
+    New repository:
+    {\tt\\
+        \hspace{1cm}\$ mkdir newrepo \\
+        \hspace{1cm}\$ cd newrepo \\
+        \hspace{1cm}\$ git init
+    }
+}
+
+
+\frame{
+    \frametitle{Directory structure}
+    New repository:
+    {\tt\\
+        \hspace{1cm}newrepo/ \\
+        \hspace{1cm}    .git/ \\
+        \hspace{1cm}    yourfiles
+    }
+}
+
+
+\frame{
+    \frametitle{git help command}
+
+    Useful commands:
+
+    \begin{description}[Other]
+        \item[git status] Where am I?
+        \item[git diff] What did I just do?
+        \item[git diff -$\,$-staged] What will I do?
+        \item[git log] What have I done?
+        \item[gitk -$\,$-all] Let's climb trees!
+        \item[git describe -$\,$-always -$\,$-tags] Who am I?
+    \end{description}
+}
+
+\frame{
+    \frametitle{Trees, yum!}
+    \framesubtitle{git eats trees\ldots nom,nom}
+
+    Branches are cheap!
+
+    \begin{description}
+        \item[git branch <name>] Let's make a new branch.
+        \item[git branch -d] Never mind.
+        \item[git checkout <name>] Let's climb over to that branch.
+        \item[git checkout -b <newname> <starthere>] Checkout and make a new branch.
+        \item[git merge <otherbranches>...] Trees eating trees!
+        \item[git rebase -i <branchname>] Clean up your history!
+    \end{description}
+}
+
+
+\frame{
+    \frametitle{Pushing and pulling}
+    {\tt
+        \hspace{1cm}\$ git push <remote> <localbranch>:<remotebranch> \\
+        \hspace{1cm}\$ git push -$\,$-set-upstream \\
+        \hspace{1cm}\$ git pull \\
+        \hspace{1cm}\$ git remote -v \\
+    }
+}
+
+
+\frame{
+    \frametitle{Workflow}
+}
+
+
+\frame{
+    \frametitle{Play with me!}
+    \begin{center}
+        {\tt \$ git svn}
+        \vfill
+        Works by calling ``{\tt git fast-import}''.
+    \end{center}
+}
+
+
+\frame{
+    \frametitle{Hosting your git repository}
+    Others:
+    \begin{itemize}
+        \itemindent3em
+        \item[Github:] \url{github.com}, \url{gitorious.com}, \ldots
+        \item[PSU:] \url{git.psu.edu}
+    \end{itemize}
+    \bigskip
+    Your own:
+    \begin{itemize}
+        \itemindent3em
+        \item[SSH server:] \url{hartmann.astro.psu.edu}, \ldots your own workstation
+        \item[SSH server:] \url{http://gitolite.com/gitolite/} (probably overkill)
+    \end{itemize}
+    \bigskip
+    {\tt
+        \hspace{1cm}\$ mkdir -p \char`~/repos/newawesomeproject.git\\
+        \hspace{1cm}\$ cd \char`~/repos/newawesomeproject.git\\
+        \hspace{1cm}\$ git init -$\,$-bare
+    }
+}
+
+
+\frame{
+    \frametitle{Ah, I did something stupid\ldots}
+
+    Recovery might be possible by looking into {\tt .git/logs/}.
+}
+
+
+\frame{
+    \frametitle{Other commands}
+
+    Graphs: {\tt git log -$\,$-graph}
+    \bigskip
+
+    More graphs: {\tt gitk -$\,$-all}
+    \bigskip
+
+    Tags: {\tt git tag}
+    \bigskip
+
+    Hooks: {\tt man githooks}; {\tt cd .git/hooks/}
+    \bigskip
+
+    Submodules: {\tt git submodule}
+    \bigskip
+
+    Rewrite history: {\tt  git filter-branch}
+    \bigskip
+
+    Collect garbage: {\tt git gc}
+}
+
+
+
+\end{document}
+
+
+% vim: set sw=4 sts=4 et:
