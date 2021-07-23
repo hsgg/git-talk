@@ -219,8 +219,29 @@
 
 
 \frame{
-    \frametitle{Pull Requests (PR)}
+    \frametitle{Pull Requests (PR) and merging}
     PRs are used to coordinate work between multiple people.
+
+    \bigskip
+    \bigskip
+    \bigskip
+
+    Best kind of merge is a fast-forward: no merging, no conflicts!
+    \begin{description}
+        \item[git merge <branchnames>...] Merge branches.
+        \item[git mergetool] Resolve conflicts.
+    \end{description}
+
+
+}
+
+
+\frame{
+    \frametitle{Upstreams and tracking branches}
+    A branch can be set to track an upstream:
+    \bigskip
+
+    \mbox{\hspace{-0.5cm}\texttt{git push -$\,$-set-upstream origin <localbranch>:<remotebranch>}}
 }
 
 
