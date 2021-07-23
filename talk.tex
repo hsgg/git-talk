@@ -180,6 +180,31 @@
 
 \frame{
     \frametitle{Where to commit: Branches}
+    \begin{description}
+        \item[\emph{master} (or \emph{main}):] Main development branch.
+        \item[release branches:] More stable branches that you might want to
+            keep supporting by fixing bugs and cherry-picking commits from
+            \emph{master}.
+        \item[feature branches:]  Development branch for specific features. By
+            convention, they often start with your initials, e.g.,
+            \emph{hg/integration\_method\_B}. Should eventually be merged into
+            \emph{master}.
+    \end{description}
+
+    %\frametitle{Trees, yum!}
+    %\framesubtitle{git eats trees\ldots nom,nom}
+
+    %Branches are cheap!
+
+    \bigskip
+    \begin{description}
+        \item[git branch -a] List branches.
+        %\item[git branch -d <name>] Delete a branch.
+        %\item[git checkout <name>] Let's climb over to that branch.
+        \item[git checkout {[}-b <newbranch>{]} <starthere>] Checkout and make a new branch.
+        \item[git merge <otherbranches>...] Trees eating trees!
+        \item[git rebase -i <branchname>] Clean up your history!
+    \end{description}
 }
 
 
@@ -212,63 +237,21 @@
     Your own:
     \begin{itemize}
         \itemindent3em
-        \item[SSH server:] Your own workstation/server.
+        \item[SSH server:] Your own workstation/server. (\emph{git init -$\,$-bare})
         \item[SSH server:] \url{http://gitolite.com/} (probably overkill)
         \item[\ldots]
     \end{itemize}
-    \bigskip
-    {\tt
-        \hspace{1cm}\$ mkdir -p \char`~/repos/newawesomeproject.git\\
-        \hspace{1cm}\$ cd \char`~/repos/newawesomeproject.git\\
-        \hspace{1cm}\$ git init -$\,$-bare
-    }
+    %\bigskip
+    %{\tt
+    %    \hspace{1cm}\$ mkdir -p \char`~/repos/newawesomeproject.git\\
+    %    \hspace{1cm}\$ cd \char`~/repos/newawesomeproject.git\\
+    %    \hspace{1cm}\$ git init -$\,$-bare
+    %}
 }
 
 
 
 \section{Summary and cheatsheet}
-\frame{
-    \frametitle{git help command}
-
-    Useful commands:
-
-    \begin{description}[Other]
-        \item[git status] Where am I?
-        \item[git diff] What did I just do?
-        \item[git diff -$\,$-staged] What will I do?
-        \item[git log] What have I done?
-        \item[gitk -$\,$-all] Let's climb trees!
-        \item[git describe -$\,$-always -$\,$-tags -$\,$-dirty] Who am I?
-    \end{description}
-}
-
-\frame{
-    \frametitle{Trees, yum!}
-    \framesubtitle{git eats trees\ldots nom,nom}
-
-    Branches are cheap!
-
-    \begin{description}
-        \item[git branch <name>] Let's make a new branch.
-        \item[git branch -d <name>] Delete a branch.
-        \item[git checkout <name>] Let's climb over to that branch.
-        \item[git checkout -b <newbranch> <starthere>] Checkout and make a new branch.
-        \item[git merge <otherbranches>...] Trees eating trees!
-        \item[git rebase -i <branchname>] Clean up your history!
-    \end{description}
-}
-
-
-\frame{
-    \frametitle{Pushing and pulling}
-    {\tt
-        \hspace{1cm}\$ git push <remote> <localbranch>:<remotebranch> \\
-        \hspace{1cm}\$ git push -$\,$-set-upstream \\
-        \hspace{1cm}\$ git pull \\
-        \hspace{1cm}\$ git remote -v \\
-    }
-}
-
 
 \frame{
     \frametitle{git cheat sheet}
@@ -294,6 +277,31 @@
 \appendix
 \frame{
     \centering \huge \color{blue}{Appendix}
+}
+
+\frame{
+    \frametitle{git help command}
+
+    Useful commands:
+
+    \begin{description}[Other]
+        \item[git status] Where am I?
+        \item[git diff] What did I just do?
+        \item[git diff -$\,$-staged] What will I do?
+        \item[git log] What have I done?
+        \item[gitk -$\,$-all] Let's climb trees!
+        \item[git describe -$\,$-always -$\,$-tags -$\,$-dirty] Who am I?
+    \end{description}
+}
+
+\frame{
+    \frametitle{Pushing and pulling}
+    {\tt
+        \hspace{1cm}\$ git push <remote> <localbranch>:<remotebranch> \\
+        \hspace{1cm}\$ git push -$\,$-set-upstream \\
+        \hspace{1cm}\$ git pull \\
+        \hspace{1cm}\$ git remote -v \\
+    }
 }
 
 \frame{
