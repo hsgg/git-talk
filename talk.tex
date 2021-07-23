@@ -17,7 +17,7 @@
 
 
 \title{git - the stupid content tracker}
-\subtitle{git eats trees. version control with git is fun.}
+\subtitle{git eats trees.}
 \author{Henry S. G. Gebhardt}
 %\institute[The Pennsylvania State University]
 %{Department of Astronomy and Astrophysics}
@@ -44,33 +44,19 @@
     \frametitle{Version Control? Version Control.}
 
     \begin{itemize}
-        \item Save history.
+        \item Save history of plain-text files.
         \item Keep track of changes.
         \item Merge code.
-        \item Don't be a git. Share code.
-        \item \ldots
+        \item Share code. (Don't be a git!)
+        \item Code integrity.
     \end{itemize}
 
-    Git, Mercurial, \sout{Bazaar}, \sout{SVN} (why bother?), \sout{CVS},
+    Git, Mercurial, \sout{Bazaar}, \sout{SVN}, \sout{CVS},
     \sout{Monotone}, \sout{DARCS}, \ldots
 
     ``Theory of Patches''
 
     What is a patch?
-}
-
-
-\frame{
-    \frametitle{Why version control?}
-    \begin{itemize}
-        \item Not all VCS are worth using\ldots
-        \item Keep a backup
-        \item Keep track of changes
-        \item Keep multiple versions.
-        \item Collaborate
-        \item Revert changes
-        \item Blame people
-    \end{itemize}
 }
 
 
@@ -93,12 +79,12 @@
 }
 
 \frame{
-    \frametitle{Git doesn't know about files\ldots whaaat?}
+    \frametitle{Git doesn't know about directories\ldots whaaat?}
 
     Git only knows content. (blobs)
     \bigskip
 
-    And how that content is assembled. (trees)
+    How that content is assembled. (trees)
     \bigskip
 
     And history. (commits)
@@ -119,67 +105,128 @@
     \medskip
 
     $\Rightarrow$ Efficient de-duplication and compression
+
+    $\Rightarrow$ Every commit stores the entire state of the project.
 }
 
 
 \frame{
-    \frametitle{Terminology: blah, blah, blah,\ldots}
-    WORKDIR \\
-    GITDIR \\
-    HEAD \\
-    Index \\
-    Local repository \\
-    Upstream repository \\
-    Stash \\
-    branch \\
-    master branch
-}
-
-
-\section{git commands}
-\frame{
-    \frametitle{git cheat sheet}
-
-    Here's the \emph{porcelain}:
-    \bigskip
-
-    \url{https://services.github.com/kit/downloads/github-git-cheat-sheet.pdf}
-    \bigskip
-
-    {\tt man gittutorial}
-
-    \vfill
-    Initialization once per machine:\\
-    \hspace{1cm}Create the file {\tt \char`~/.gitconfig}.
-
-    Set your {\tt EDITOR} variable in {\tt \char`~/.bashrc}.
-}
-
-
-\frame{
-    \frametitle{Initial checkout}
-    Existing repository:
-    {\tt\\
-        \hspace{0.3cm}\$ git clone ssh://drake.astro.psu.edu:\char`~hsg113/repos/git-for-astros.git
-    }
-    \vfill
-    New repository:
-    {\tt\\
-        \hspace{1cm}\$ mkdir newrepo; cd newrepo\\
-        \hspace{1cm}\$ git init
+    \frametitle{git stores its information in a .git directory}
+    {\tt
+        \hspace{1cm}newrepo/ \\
+        \hspace{1.5cm}    .git/ \\
+        \hspace{1.5cm}    .gitignore \\
+        \hspace{1.5cm}    README.md \\
+        \hspace{1.5cm}    doc/ \\
+        \hspace{1.5cm}    src/ \\
+        \hspace{1.5cm}    test/ \\
     }
 }
 
 
 \frame{
-    \frametitle{Commits}
+    \frametitle{Per-seat Initialization}
+    Initialization once per machine ({\tt \char`~/.gitconfig}):
+    \begin{quote}
+        \tt
+        \$ git config -$\,$-global user.name "Henry VIII" \\
+        \$ git config -$\,$-global user.email "h@here.com"
+    \end{quote}
+
+    \bigskip
+    Set your {\tt EDITOR} variable in {\tt \char`~/.bashrc} or {\tt \char`~/.profile}.
+}
+
+
+\frame{
+    \frametitle{Making history}
+    First, add changes to staging area (the \emph{index}):
     \begin{description}[Other]
-        \item[git add <file>] Add your changes to the index.
-        \item[git add -p] Be selective about what to add.
-        \item[git commit] Commit your changes.
+        \item[git add <file>]  \# Add your changes to the index.
+        \item[git add -p] \hspace{0.6cm} \# Be selective about what to add.
+    \end{description}
+
+    \bigskip
+    Then, commit:
+    \begin{description}[Other]
+        \item[git commit]  \# Commits your changes.
     \end{description}
 }
 
+
+\section{Workflows and git branches}
+\frame{
+    \frametitle{What to commit}
+    \begin{itemize}
+        \item The bare minimum to recreate the project.
+        \item Plots! (They are the minimum to recompile the \LaTeX{}.)
+    \end{itemize}
+
+    \bigskip
+    \bigskip
+    \texttt{.gitignore} can appear anywhere in the git repository, and contains
+    files to ignore, e.g.,
+    \begin{description}[Other]
+        \item[.gitignore]\phantom{0}\\
+            *.aux \\
+            *.log \\
+            *.toc \\
+    \end{description}
+
+    \bigskip
+    Reasons: avoid conflicts, save space.
+}
+
+
+\frame{
+    \frametitle{Where to commit: Branches}
+}
+
+
+\section{Clones and Remote Repositories}
+\frame{
+    \frametitle{Each git clone is a full repository}
+
+    \includegraphics[width=\textwidth]{Distributed-Version-Control-System-Workflow-What-Is-Git-Edureka.png}
+
+    \texttt{git pull} = \texttt{git fetch} + \texttt{git merge}
+}
+
+
+\frame{
+    \frametitle{Pull Requests (PR)}
+    PRs are used to coordinate work between multiple people.
+}
+
+
+\frame{
+    \frametitle{Hosting your git repository}
+    Companies:
+    \begin{itemize}
+        \itemindent3em
+        \item[Github:] \url{github.com}
+        \item[Gitlab:] \url{gitlab.com}
+        \item[\ldots]
+    \end{itemize}
+    \bigskip
+    Your own:
+    \begin{itemize}
+        \itemindent3em
+        \item[SSH server:] Your own workstation/server.
+        \item[SSH server:] \url{http://gitolite.com/} (probably overkill)
+        \item[\ldots]
+    \end{itemize}
+    \bigskip
+    {\tt
+        \hspace{1cm}\$ mkdir -p \char`~/repos/newawesomeproject.git\\
+        \hspace{1cm}\$ cd \char`~/repos/newawesomeproject.git\\
+        \hspace{1cm}\$ git init -$\,$-bare
+    }
+}
+
+
+
+\section{Summary and cheatsheet}
 \frame{
     \frametitle{git help command}
 
@@ -196,15 +243,6 @@
 }
 
 \frame{
-    \frametitle{Sending and receiving patches}
-    \begin{description}[Other]
-        \item[git format-patch] Create a patch
-        \item[git send-email] Send an entire set of patches as emails.
-        \item[git am, git apply] Apply other people's patches.
-    \end{description}
-}
-
-\frame{
     \frametitle{Trees, yum!}
     \framesubtitle{git eats trees\ldots nom,nom}
 
@@ -212,9 +250,9 @@
 
     \begin{description}
         \item[git branch <name>] Let's make a new branch.
-        \item[git branch -d] Never mind.
+        \item[git branch -d <name>] Delete a branch.
         \item[git checkout <name>] Let's climb over to that branch.
-        \item[git checkout -b <newname> <starthere>] Checkout and make a new branch.
+        \item[git checkout -b <newbranch> <starthere>] Checkout and make a new branch.
         \item[git merge <otherbranches>...] Trees eating trees!
         \item[git rebase -i <branchname>] Clean up your history!
     \end{description}
@@ -233,7 +271,56 @@
 
 
 \frame{
-    \frametitle{Workflow}
+    \frametitle{git cheat sheet}
+
+    Here's the \emph{porcelain}:
+    \bigskip
+
+    %\url{https://services.github.com/kit/downloads/github-git-cheat-sheet.pdf}
+    \url{https://about.gitlab.com/images/press/git-cheat-sheet.pdf}
+
+    \vfill
+
+    {\tt man gittutorial}
+
+    \vfill
+    Initialization once per machine:\\
+    \hspace{1cm}Create the file {\tt \char`~/.gitconfig}.
+
+    Set your {\tt EDITOR} variable in {\tt \char`~/.bashrc} or {\tt \char`~/.profile}.
+}
+
+
+\appendix
+\frame{
+    \centering \huge \color{blue}{Appendix}
+}
+
+\frame{
+    \frametitle{Initial checkout}
+    Existing repository:
+    {\tt\\
+        \hspace{0.3cm}\$ git clone <url>
+    }
+    \vfill
+    New repository:
+    {\tt\\
+        \hspace{1cm}\$ mkdir newrepo; cd newrepo\\
+        \hspace{1cm}\$ git init
+    }
+}
+
+\frame{
+    \frametitle{Sending and receiving patches}
+    \begin{description}[Other]
+        \item[git format-patch] Create a patch
+        \item[git send-email] Send an entire set of patches as emails.
+        \item[git am, git apply] Apply other people's patches.
+    \end{description}
+}
+
+\frame{
+    \frametitle{Merging branches and conflicts}
     {\tt git mergetool}
 }
 
@@ -245,30 +332,6 @@
         \vfill
         Works by calling ``{\tt git fast-import}''.
     \end{center}
-}
-
-
-\frame{
-    \frametitle{Hosting your git repository}
-    Others:
-    \begin{itemize}
-        \itemindent3em
-        \item[Github:] \url{github.com}, \url{gitorious.com}, \ldots
-        \item[PSU:] \url{git.psu.edu}
-    \end{itemize}
-    \bigskip
-    Your own:
-    \begin{itemize}
-        \itemindent3em
-        \item[SSH server:] \url{hartmann.astro.psu.edu}, \ldots your own workstation
-        \item[SSH server:] \url{http://gitolite.com/gitolite/} (probably overkill)
-    \end{itemize}
-    \bigskip
-    {\tt
-        \hspace{1cm}\$ mkdir -p \char`~/repos/newawesomeproject.git\\
-        \hspace{1cm}\$ cd \char`~/repos/newawesomeproject.git\\
-        \hspace{1cm}\$ git init -$\,$-bare
-    }
 }
 
 
