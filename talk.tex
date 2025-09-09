@@ -278,7 +278,13 @@
 
     \bigskip
     \bigskip
-    \bigskip
+    Four files:
+    \begin{description}
+        \item[LOCAL:] Current version.
+        \item[BASE:] Last common version.
+        \item[REMOTE:] To-be-merged-in version.
+        \item[MERGED:] The version we want.
+    \end{description}
     \bigskip
     \bigskip
     \tiny (Demonstration: Add README.)
@@ -292,7 +298,8 @@
 
     \bigskip
     \bigskip
-    {\tt git rebase -i <branch>}
+    {\tt git checkout topic}\\
+    {\tt git rebase -i master}
 
     \bigskip
     \bigskip
@@ -305,7 +312,7 @@
 
 \frame{
     \frametitle{Hosting your git repository}
-    Companies:
+    Providers:
     \begin{itemize}
         \itemindent3em
         \item[Github:] \url{github.com}
@@ -342,6 +349,8 @@
     \vfill
 
     {\tt man gittutorial}
+
+    {\tt man git-reflog}
 
     \vfill
     Initialization once per machine:\\
