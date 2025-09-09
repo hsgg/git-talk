@@ -126,6 +126,15 @@
 }
 
 \frame{
+    \frametitle{Distributed: Each git clone is a full repository}
+
+    \includegraphics[width=\textwidth]{Distributed-Version-Control-System-Workflow-What-Is-Git-Edureka.png}
+
+    \texttt{git pull} = \texttt{git fetch} + \texttt{git merge}
+}
+
+
+\frame{
     \frametitle{Git doesn't know about directories\ldots whaaat?}
 
     Git only knows content. (blobs)
@@ -205,7 +214,8 @@
     \begin{description}[Other]
         \item[git commit]  \# Commits your changes.
     \end{description}
-    Add a short title, and then a longer description.
+    Add a short title, and then a longer description, e.g.,
+    \includegraphics[width=\textwidth]{./commit-message.png}
 }
 
 
@@ -234,20 +244,6 @@
 
 
 \frame{
-    \frametitle{Where to commit: Branches}
-    \begin{description}
-        \item[\emph{master} (or \emph{main}):] Main development branch.
-        \item[release branches:] More stable branches that you might want to
-            keep supporting by fixing bugs and cherry-picking commits from
-            \emph{master}.
-        \item[feature branches:]  Development branch for specific features. By
-            convention, they often start with your initials, e.g.,
-            \emph{hg/integration\_method\_B}. Should eventually be merged into
-            \emph{master}.
-    \end{description}
-}
-
-\frame{
     \frametitle{Trees, yum!}
     \framesubtitle{git eats trees\ldots nom,nom}
 
@@ -260,31 +256,9 @@
         %\item[git checkout <name>] Let's climb over to that branch.
         \item[git checkout {[}-b <newbranch>{]} <starthere>] Checkout and make a new branch.
         \item[git merge <otherbranches>...] Trees eating trees!
+        \item[git merge -$\,$-squash <otherbranches>...] Squash trees!
         \item[git rebase -i <branchname>] Clean up your history!
     \end{description}
-}
-
-
-\frame{
-    \frametitle{Pushing and pulling}
-    \color{red} Put graph of distributed computing.
-
-    {\tt
-        \hspace{1cm}\$ git push <remote> <localbranch>:<remotebranch> \\
-        \hspace{1cm}\$ git push -$\,$-set-upstream \\
-        \hspace{1cm}\$ git pull \\
-        \hspace{1cm}\$ git remote -v \\
-    }
-}
-
-
-\section{Clones and Remote Repositories}
-\frame{
-    \frametitle{Each git clone is a full repository}
-
-    \includegraphics[width=\textwidth]{Distributed-Version-Control-System-Workflow-What-Is-Git-Edureka.png}
-
-    \texttt{git pull} = \texttt{git fetch} + \texttt{git merge}
 }
 
 
@@ -305,22 +279,26 @@
 
 
 \frame{
-    \frametitle{Play nice together!}
-    \begin{center}
-        {\tt \$ git svn}
-        \vfill
-        Works by calling ``{\tt git fast-import}''.
-    \end{center}
+    \frametitle{Types of merges}
+    {\tiny \url{https://github.com/SPHEREx/SPHEREx-L4-Cosmology-Pipeline/blob/main/doc/PRPolicy.md\#merging-choices}}
+    \bigskip
+
+    \begin{description}
+        \item[Merge commit:] Creates a new commit, keeping both histories.
+        \item[Squash commit:] Squashes branch history into a single commit.
+        \item[Rebase:] Takes branch and replays it ontop of base branch.
+        \item[Fast-forward:] No new commit, just advance the base branch.
+        \item[Forced push:] Overwrite what's on the remote.
+    \end{description}
 }
 
 \frame{
-    \frametitle{Upstreams and tracking branches}
-    A branch can be set to track an upstream:
-    \bigskip
+    \frametitle{Merging branches and conflicts}
+    {\tt git mergetool}
 
-    \mbox{\hspace{-0.5cm}\texttt{git push -$\,$-set-upstream origin <localbranch>:<remotebranch>}}
+    {\tt git config -$\,$-global merge.tool nvimdiff}
+
 }
-
 
 
 \section{Summary and cheatsheet}
@@ -346,9 +324,9 @@
 }
 
 
-\appendix
+% \appendix
 \frame{
-    \centering \huge \color{blue}{Appendix}
+    \centering \huge {\color{blue}Appendix}
 }
 
 \frame{
@@ -427,8 +405,40 @@
 }
 
 \frame{
-    \frametitle{Merging branches and conflicts}
-    {\tt git mergetool}
+    \frametitle{Where to commit: Branches}
+    \begin{description}
+        \item[\emph{master} (or \emph{main}):] Main development branch.
+        \item[release branches:] More stable branches that you might want to
+            keep supporting by fixing bugs and cherry-picking commits from
+            \emph{master}.
+        \item[feature branches:]  Development branch for specific features. By
+            convention, they often start with your initials, e.g.,
+            \emph{hg/integration\_method\_B}. Should eventually be merged into
+            \emph{master}.
+    \end{description}
+}
+
+
+\frame{
+    \frametitle{Play nice together!}
+    \begin{center}
+        {\tt \$ git svn}
+        \vfill
+        Works by calling ``{\tt git fast-import}''.
+    \end{center}
+}
+
+\frame{
+    \frametitle{Upstreams and tracking branches}
+    A branch can be set to track an upstream:
+    \bigskip
+
+    \texttt{git push -u origin <localbranch>:<remotebranch>}
+
+    \bigskip
+    \bigskip
+
+    (or, equivalently, use \texttt{-$\,$-set-upstream})
 }
 
 
