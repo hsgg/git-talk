@@ -122,7 +122,7 @@
     Distributed, not centralized. \emph{Every clone has the full history.}
     \bigskip
 
-    There are \emph{plumbing} commands and \emph{porcelain} commands.
+    % There are \emph{plumbing} commands and \emph{porcelain} commands.
 }
 
 \frame{
@@ -144,6 +144,10 @@
 \frame{
     \frametitle{blobs, trees, and commits are identified by their SHA1-sum}
 
+    \hfill 9fc058eae64b097d7a270a404527375526e65cea \hfill
+    \bigskip
+    \bigskip
+
     A hash is a (hopefully) unique number to identify some information, like a
     file.
     \medskip
@@ -155,17 +159,15 @@
     \medskip
 
     $\Rightarrow$ Efficient de-duplication and compression
-
-    Every commit stores the entire state of the project.
 }
 
 
 \frame{
     \frametitle{Terminology: blah, blah, blah,\ldots}
-    WORKDIR \\
-    GITDIR \\
-    HEAD \\
-    Index \\
+    WORKDIR (directory where files are checked out) \\
+    GITDIR (\texttt{.git}) \\
+    HEAD (currently checked out commit) \\
+    Index (staging area for next commit) \\
     Local repository \\
     Upstream repository \\
     Stash
@@ -381,32 +383,6 @@
 }
 
 
-\frame{
-    \frametitle{Hosting your git repository}
-    Companies:
-    \begin{itemize}
-        \itemindent3em
-        \item[Github:] \url{github.com}
-        \item[Gitlab:] \url{gitlab.com}
-        \item[\ldots]
-    \end{itemize}
-    \bigskip
-    Your own:
-    \begin{itemize}
-        \itemindent3em
-        \item[SSH server:] Your own workstation/server. (\emph{git init -$\,$-bare})
-        \item[SSH server:] \url{http://gitolite.com/} (probably overkill)
-        \item[\ldots]
-    \end{itemize}
-    \bigskip
-    {\tt
-        \hspace{1cm}\$ mkdir -p \char`~/repos/newawesomeproject.git\\
-        \hspace{1cm}\$ cd \char`~/repos/newawesomeproject.git\\
-        \hspace{1cm}\$ git init -$\,$-bare
-    }
-}
-
-
 
 \section{Summary and cheatsheet}
 
@@ -470,7 +446,8 @@
     \vfill
     New repository:
     {\tt\\
-        \hspace{1cm}\$ mkdir newrepo; cd newrepo\\
+        \hspace{1cm}\$ mkdir newrepo\\
+        \hspace{1cm}\$ cd newrepo\\
         \hspace{1cm}\$ git init
     }
 }
@@ -489,15 +466,6 @@
     {\tt git mergetool}
 }
 
-
-\frame{
-    \frametitle{Play with me!}
-    \begin{center}
-        {\tt \$ git svn}
-        \vfill
-        Works by calling ``{\tt git fast-import}''.
-    \end{center}
-}
 
 \frame{
     \frametitle{Ah, I did something stupid\ldots}
@@ -543,22 +511,22 @@
         \itemindent3em
         \item[Github:] \url{github.com}
         \item[Gitlab:] \url{gitlab.com}
+        \item[Sourcehut:] \url{sourcehut.org}
         \item[\ldots]
     \end{itemize}
     \bigskip
     Your own:
     \begin{itemize}
         \itemindent3em
-        \item[SSH server:] Your own workstation/server.
-        \item[SSH server:] \url{http://gitolite.com/} (probably overkill)
-        \item[\ldots]
+        \item[SSH server:] Your own workstation/server.\\
+            {\tt
+                \hspace{1cm}\$ mkdir -p \char`~/repos/newawesomeproject.git\\
+                \hspace{1cm}\$ cd \char`~/repos/newawesomeproject.git\\
+                \hspace{1cm}\$ git init -$\,$-bare
+            }
+        \item[SSH server:] \url{http://gitolite.com/} (Fine-grained permissions)
+        \item[Forgejo:] \url{https://forgejo.org/} (Full-on website)
     \end{itemize}
-    \bigskip
-    {\tt
-        \hspace{1cm}\$ mkdir -p \char`~/repos/newawesomeproject.git\\
-        \hspace{1cm}\$ cd \char`~/repos/newawesomeproject.git\\
-        \hspace{1cm}\$ git init -$\,$-bare
-    }
 }
 
 
