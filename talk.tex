@@ -175,70 +175,6 @@
 
 
 \section{git commands}
-\frame{
-    \frametitle{git cheat sheet}
-
-    Here's the \emph{porcelain}:
-    \bigskip
-
-    %\url{https://services.github.com/kit/downloads/github-git-cheat-sheet.pdf}
-    \url{https://about.gitlab.com/images/press/git-cheat-sheet.pdf}
-    \vfill
-    Initialization once per machine ({\tt \char`~/.gitconfig}):
-    \begin{quote}
-        \tt
-        \$ git config -$\,$-global user.name "Henry VIII" \\
-        \$ git config -$\,$-global user.email "h@here.com"
-    \end{quote}
-}
-
-
-\frame{
-    \frametitle{Initial checkout}
-    Existing repository:
-    {\tt\\
-        \hspace{0.3cm}\$ git clone ssh://git@git.psu.edu/hsg113/test.git
-    }
-    \vfill
-    New repository:
-    {\tt\\
-        \hspace{1cm}\$ mkdir newrepo \\
-        \hspace{1cm}\$ cd newrepo \\
-        \hspace{1cm}\$ git init
-    }
-}
-
-
-\frame{
-    \frametitle{Directory structure}
-    \frametitle{git stores its information in a .git directory}
-    {\tt
-        \hspace{1cm}newrepo/ \\
-        \hspace{1.5cm}    .git/ \\
-        \hspace{1.5cm}    .gitignore \\
-        \hspace{1.5cm}    README.md \\
-        \hspace{1.5cm}    doc/ \\
-        \hspace{1.5cm}    src/ \\
-        \hspace{1.5cm}    test/ \\
-    }
-}
-
-
-\frame{
-    \frametitle{git help command}
-
-    Useful commands:
-
-    \begin{description}[Other]
-        \item[git status] Where am I?
-        \item[git diff] What did I just do?
-        \item[git diff -$\,$-staged] What will I do?
-        \item[git log] What have I done?
-        \item[gitk -$\,$-all] Let's climb trees!
-        \item[git describe -$\,$-always -$\,$-tags] Who am I?
-    \end{description}
-}
-
 
 \frame{
     \frametitle{Per-seat Initialization}
@@ -250,7 +186,9 @@
     \end{quote}
 
     \bigskip
-    Set your {\tt EDITOR} variable in {\tt \char`~/.bashrc} or {\tt \char`~/.profile}.
+
+    Set your {\tt EDITOR} variable in {\tt \char`~/.bashrc} or {\tt
+    \char`~/.profile} or wherever you set your environment variables.
 }
 
 
@@ -267,6 +205,7 @@
     \begin{description}[Other]
         \item[git commit]  \# Commits your changes.
     \end{description}
+    Add a short title, and then a longer description.
 }
 
 
@@ -411,6 +350,32 @@
 \frame{
     \centering \huge \color{blue}{Appendix}
 }
+
+\frame{
+    \frametitle{git cheat sheet}
+
+    Here's the \emph{porcelain}:
+    \bigskip
+
+    %\url{https://services.github.com/kit/downloads/github-git-cheat-sheet.pdf}
+    \url{https://about.gitlab.com/images/press/git-cheat-sheet.pdf}
+}
+
+
+\frame{
+    \frametitle{Directory structure}
+    \frametitle{git stores its information in a .git directory}
+    {\tt
+        \hspace{1cm}newrepo/ \\
+        \hspace{1.5cm}    .git/ \\
+        \hspace{1.5cm}    .gitignore \\
+        \hspace{1.5cm}    README.md \\
+        \hspace{1.5cm}    doc/ \\
+        \hspace{1.5cm}    src/ \\
+        \hspace{1.5cm}    test/ \\
+    }
+}
+
 
 \frame{
     \frametitle{git help command}
