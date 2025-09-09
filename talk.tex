@@ -120,6 +120,9 @@
     \bigskip
 
     Distributed, not centralized. \emph{Every clone has the full history.}
+    \bigskip
+
+    There are \emph{plumbing} commands and \emph{porcelain} commands.
 }
 
 \frame{
@@ -128,7 +131,7 @@
     Git only knows content. (blobs)
     \bigskip
 
-    And how that content is assembled. (trees)
+    How that content is assembled. (trees)
     \bigskip
 
     And history. (commits)
@@ -152,6 +155,8 @@
     \medskip
 
     $\Rightarrow$ Efficient de-duplication and compression
+
+    Every commit stores the entire state of the project.
 }
 
 
@@ -204,9 +209,11 @@
 
 \frame{
     \frametitle{Directory structure}
+    \frametitle{git stores its information in a .git directory}
     {\tt
         \hspace{1cm}newrepo/ \\
         \hspace{1.5cm}    .git/ \\
+        \hspace{1.5cm}    .gitignore \\
         \hspace{1.5cm}    README.md \\
         \hspace{1.5cm}    doc/ \\
         \hspace{1.5cm}    src/ \\
@@ -230,6 +237,75 @@
     \end{description}
 }
 
+
+\frame{
+    \frametitle{Per-seat Initialization}
+    Initialization once per machine ({\tt \char`~/.gitconfig}):
+    \begin{quote}
+        \tt
+        \$ git config -$\,$-global user.name "Henry VIII" \\
+        \$ git config -$\,$-global user.email "h@here.com"
+    \end{quote}
+
+    \bigskip
+    Set your {\tt EDITOR} variable in {\tt \char`~/.bashrc} or {\tt \char`~/.profile}.
+}
+
+
+\frame{
+    \frametitle{Making history}
+    First, add changes to staging area (the \emph{index}):
+    \begin{description}[Other]
+        \item[git add <file>]  \# Add your changes to the index.
+        \item[git add -p] \hspace{0.6cm} \# Be selective about what to add.
+    \end{description}
+
+    \bigskip
+    Then, commit:
+    \begin{description}[Other]
+        \item[git commit]  \# Commits your changes.
+    \end{description}
+}
+
+
+\section{Workflows and git branches}
+\frame{
+    \frametitle{What to commit}
+    \begin{itemize}
+        \item The bare minimum to recreate the project.
+        \item Plots! (They are the minimum to recompile the \LaTeX{}.)
+    \end{itemize}
+
+    \bigskip
+    \bigskip
+    \texttt{.gitignore} can appear anywhere in the git repository, and contains
+    files to ignore, e.g.,
+    \begin{description}[Other]
+        \item[.gitignore]\phantom{0}\\
+            *.aux \\
+            *.log \\
+            *.toc \\
+    \end{description}
+
+    \bigskip
+    Reasons: avoid conflicts, save space.
+}
+
+
+\frame{
+    \frametitle{Where to commit: Branches}
+    \begin{description}
+        \item[\emph{master} (or \emph{main}):] Main development branch.
+        \item[release branches:] More stable branches that you might want to
+            keep supporting by fixing bugs and cherry-picking commits from
+            \emph{master}.
+        \item[feature branches:]  Development branch for specific features. By
+            convention, they often start with your initials, e.g.,
+            \emph{hg/integration\_method\_B}. Should eventually be merged into
+            \emph{master}.
+    \end{description}
+}
+
 \frame{
     \frametitle{Trees, yum!}
     \framesubtitle{git eats trees\ldots nom,nom}
@@ -241,6 +317,13 @@
         \item[git branch -d] Never mind.
         \item[git checkout <name>] Let's climb over to that branch.
         \item[git checkout -b <newname> <starthere>] Checkout and make a new branch.
+
+    \bigskip
+    \begin{description}
+        \item[git branch -a] List branches.
+        %\item[git branch -d <name>] Delete a branch.
+        %\item[git checkout <name>] Let's climb over to that branch.
+        \item[git checkout {[}-b <newbranch>{]} <starthere>] Checkout and make a new branch.
         \item[git merge <otherbranches>...] Trees eating trees!
         \item[git rebase -i <branchname>] Clean up your history!
     \end{description}
@@ -260,8 +343,29 @@
 }
 
 
+\section{Clones and Remote Repositories}
 \frame{
-    \frametitle{Workflow}
+    \frametitle{Each git clone is a full repository}
+
+    \includegraphics[width=\textwidth]{Distributed-Version-Control-System-Workflow-What-Is-Git-Edureka.png}
+
+    \texttt{git pull} = \texttt{git fetch} + \texttt{git merge}
+}
+
+
+\frame{
+    \frametitle{Pull Requests (PR) and merging}
+    PRs are used to coordinate work between multiple people.
+
+    \bigskip
+    \bigskip
+    \bigskip
+
+    Best kind of merge is a fast-forward: no merging, no conflicts!
+    \begin{description}
+        \item[git merge <branchnames>...] Merge branches.
+        \item[git mergetool] Resolve conflicts.
+    \end{description}
 }
 
 
@@ -272,6 +376,14 @@
         \vfill
         Works by calling ``{\tt git fast-import}''.
     \end{center}
+}
+
+\frame{
+    \frametitle{Upstreams and tracking branches}
+    A branch can be set to track an upstream:
+    \bigskip
+
+    \mbox{\hspace{-0.5cm}\texttt{git push -$\,$-set-upstream origin <localbranch>:<remotebranch>}}
 }
 
 
@@ -288,7 +400,7 @@
     Your own:
     \begin{itemize}
         \itemindent3em
-        \item[SSH server:] Your own workstation/server.
+        \item[SSH server:] Your own workstation/server. (\emph{git init -$\,$-bare})
         \item[SSH server:] \url{http://gitolite.com/} (probably overkill)
         \item[\ldots]
     \end{itemize}
@@ -300,6 +412,98 @@
     }
 }
 
+
+
+\section{Summary and cheatsheet}
+
+\frame{
+    \frametitle{git cheat sheet}
+
+    Here's the \emph{porcelain}:
+    \bigskip
+
+    %\url{https://services.github.com/kit/downloads/github-git-cheat-sheet.pdf}
+    \url{https://about.gitlab.com/images/press/git-cheat-sheet.pdf}
+
+    \vfill
+
+    {\tt man gittutorial}
+
+    \vfill
+    Initialization once per machine:\\
+    \hspace{1cm}Create the file {\tt \char`~/.gitconfig}.
+
+    Set your {\tt EDITOR} variable in {\tt \char`~/.bashrc} or {\tt \char`~/.profile}.
+}
+
+
+\appendix
+\frame{
+    \centering \huge \color{blue}{Appendix}
+}
+
+\frame{
+    \frametitle{git help command}
+
+    Useful commands:
+
+    \begin{description}[Other]
+        \item[git status] Where am I?
+        \item[git diff] What did I just do?
+        \item[git diff -$\,$-staged] What will I do?
+        \item[git log] What have I done?
+        \item[gitk -$\,$-all] Let's climb trees!
+        \item[git describe -$\,$-always -$\,$-tags -$\,$-dirty] Who am I?
+    \end{description}
+}
+
+\frame{
+    \frametitle{Pushing and pulling}
+    {\tt
+        \hspace{1cm}\$ git push <remote> <localbranch>:<remotebranch> \\
+        \hspace{1cm}\$ git push -$\,$-set-upstream \\
+        \hspace{1cm}\$ git pull \\
+        \hspace{1cm}\$ git remote -v \\
+    }
+}
+
+\frame{
+    \frametitle{Initial checkout}
+    Existing repository:
+    {\tt\\
+        \hspace{0.3cm}\$ git clone <url>
+    }
+    \vfill
+    New repository:
+    {\tt\\
+        \hspace{1cm}\$ mkdir newrepo; cd newrepo\\
+        \hspace{1cm}\$ git init
+    }
+}
+
+\frame{
+    \frametitle{Sending and receiving patches}
+    \begin{description}[Other]
+        \item[git format-patch] Create a patch
+        \item[git send-email] Send an entire set of patches as emails.
+        \item[git am, git apply] Apply other people's patches.
+    \end{description}
+}
+
+\frame{
+    \frametitle{Merging branches and conflicts}
+    {\tt git mergetool}
+}
+
+
+\frame{
+    \frametitle{Play with me!}
+    \begin{center}
+        {\tt \$ git svn}
+        \vfill
+        Works by calling ``{\tt git fast-import}''.
+    \end{center}
+}
 
 \frame{
     \frametitle{Ah, I did something stupid\ldots}
