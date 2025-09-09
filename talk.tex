@@ -46,31 +46,70 @@
 \section{Introduction to Version Control}
 \frame{
     \frametitle{Version Control? Version Control.}
-    Permise: Code is text.
+    % Premise: Code is text.
 
-    \bigskip
+    % \bigskip
     Version control helps to:
     \begin{itemize}
         \item Save history.
         \item Keep track of changes.
         \item Merge code.
-        \item Share code. (Don't be a git.)
-        \item Consistency checking, e.g., when running code elsewhere.
+        \item Share code. (Don't be a git!)
+        \item Consistency checking, e.g., when running code or configs elsewhere.
         \item \ldots
     \end{itemize}
 
-    Git, Mercurial, \sout{Bazaar}, \sout{SVN} (why bother?), \sout{CVS},
+    Git, Mercurial, \sout{Bazaar}, \sout{SVN (why bother?)}, \sout{CVS},
     \sout{Monotone}, \sout{DARCS}, \ldots
 
     ``Theory of Patches''
+}
 
-    What is a patch?
+\frame{
+    \frametitle{Git was created by Linus Torvalds for Linux kernel development}
+
+    Linux developers used to use \texttt{BitKeeper} until it wasn't free anymore.
+
+    \smallskip
+
+    So Linus Torvalds created git, which always had a reputation for being too
+    complicated to use. First release 7 April 2005.
+
+    \smallskip
+
+    There are {\color{red}\emph{plumbing}} commands and
+    {\color{blue}\emph{porcelain}} commands.
+
+    \smallskip
+
+    \centering
+    \includegraphics[width=0.7\textwidth]{./git-so}
+}
+
+
+\frame{
+    \frametitle{What is a patch?}
+
+    Patches are text files that show \gradientRGB{cha}{10,10,255}{100,255,10}\gradientRGB{nges}{100,255,10}{255,10,10}.
+
+    \bigskip
+
+    {\color{Green} Create a patch:}\\
+    \texttt{\$ diff -Naur file1 file2 > changes.patch}
+    \medskip
+
+    \includegraphics[width=\textwidth]{create_patch.png}
+
+    \bigskip
+
+    {\color{blue} Apply a patch:}\\
+    \texttt{\$ patch -p1 < changes.patch}
 }
 
 
 \section{Theory}
 \frame{
-    \frametitle{Git Theory}
+    \frametitle{Git History}
 
     \begin{center}
         \url{https://git-scm.com}
@@ -81,13 +120,10 @@
     \bigskip
 
     Distributed, not centralized. \emph{Every clone has the full history.}
-    \bigskip
-
-    There are \emph{plumbing} commands and \emph{porcelain} commands.
 }
 
 \frame{
-    \frametitle{Git doesn't know about files\ldots whaaat?}
+    \frametitle{Git doesn't know about directories\ldots whaaat?}
 
     Git only knows content. (blobs)
     \bigskip
@@ -96,6 +132,9 @@
     \bigskip
 
     And history. (commits)
+    \bigskip
+
+    Each commit stores the full source code (no patches!).
 }
 
 
@@ -210,6 +249,8 @@
 
 \frame{
     \frametitle{Pushing and pulling}
+    \color{red} Put graph of distributed computing.
+
     {\tt
         \hspace{1cm}\$ git push <remote> <localbranch>:<remotebranch> \\
         \hspace{1cm}\$ git push -$\,$-set-upstream \\
@@ -292,6 +333,34 @@
     \bigskip
 
     Collect garbage: {\tt git gc}
+}
+
+
+\section{Hosting (github, gitlab, forgejo, gitolite, \ldots)}
+
+\frame{
+    \frametitle{Hosting your git repository}
+    Companies:
+    \begin{itemize}
+        \itemindent3em
+        \item[Github:] \url{github.com}
+        \item[Gitlab:] \url{gitlab.com}
+        \item[\ldots]
+    \end{itemize}
+    \bigskip
+    Your own:
+    \begin{itemize}
+        \itemindent3em
+        \item[SSH server:] Your own workstation/server.
+        \item[SSH server:] \url{http://gitolite.com/} (probably overkill)
+        \item[\ldots]
+    \end{itemize}
+    \bigskip
+    {\tt
+        \hspace{1cm}\$ mkdir -p \char`~/repos/newawesomeproject.git\\
+        \hspace{1cm}\$ cd \char`~/repos/newawesomeproject.git\\
+        \hspace{1cm}\$ git init -$\,$-bare
+    }
 }
 
 
