@@ -183,7 +183,7 @@
 }
 
 
-\section{git commands}
+\section{git basics}
 
 \frame{
     \frametitle{Per-seat Initialization}
@@ -244,45 +244,10 @@
 
 
 \frame{
-    \frametitle{Trees, yum!}
-    \framesubtitle{git eats trees\ldots nom,nom}
-
-    Branches are cheap!
-
-    \bigskip
-    \begin{description}
-        \item[git branch -a] List branches.
-        %\item[git branch -d <name>] Delete a branch.
-        %\item[git checkout <name>] Let's climb over to that branch.
-        \item[git checkout {[}-b <newbranch>{]} <starthere>] Checkout and make a new branch.
-        \item[git merge <otherbranches>...] Trees eating trees!
-        \item[git merge -$\,$-squash <otherbranches>...] Squash trees!
-        \item[git rebase -i <branchname>] Clean up your history!
-    \end{description}
-}
-
-
-\frame{
     \frametitle{Pull Requests (PR) and merging}
     PRs are used to coordinate work between multiple people.
 
     \bigskip
-    \bigskip
-    \bigskip
-
-    Best kind of merge is a fast-forward: no merging, no conflicts!
-    \begin{description}
-        \item[git merge <branchnames>...] Merge branches.
-        \item[git mergetool] Resolve conflicts.
-    \end{description}
-}
-
-
-\frame{
-    \frametitle{Types of merges}
-    {\tiny \url{https://github.com/SPHEREx/SPHEREx-L4-Cosmology-Pipeline/blob/main/doc/PRPolicy.md\#merging-choices}}
-    \bigskip
-
     \begin{description}
         \item[Merge commit:] Creates a new commit, keeping both histories.
         \item[Squash commit:] Squashes branch history into a single commit.
@@ -290,16 +255,56 @@
         \item[Fast-forward:] No new commit, just advance the base branch.
         \item[Forced push:] Overwrite what's on the remote.
     \end{description}
+
+    \bigskip
+    Best kind of merge is a fast-forward: no merging, no conflicts!
+
+    \bigskip
+    {\tiny \url{https://github.com/SPHEREx/SPHEREx-L4-Cosmology-Pipeline/blob/main/doc/PRPolicy.md\#merging-choices}}
 }
+
 
 \frame{
     \frametitle{Merging branches and conflicts}
-    {\tt git mergetool}
-
     {\tt git config -$\,$-global merge.tool nvimdiff}
 
+    {\tt git mergetool -$\,$-tool-help}
+
+    \bigskip
+    \bigskip
+    {\tt git merge <branches>...}
+
+    {\tt git mergetool}
 }
 
+
+
+\section{Hosting (github, gitlab, forgejo, gitolite, \ldots)}
+
+\frame{
+    \frametitle{Hosting your git repository}
+    Companies:
+    \begin{itemize}
+        \itemindent3em
+        \item[Github:] \url{github.com}
+        \item[Gitlab:] \url{gitlab.com}
+        \item[Sourcehut:] \url{sourcehut.org}
+        \item[\ldots]
+    \end{itemize}
+    \bigskip
+    Your own:
+    \begin{itemize}
+        \itemindent3em
+        \item[SSH server:] Your own workstation/server.\\
+            {\tt
+                \hspace{1cm}\$ mkdir -p \char`~/repos/newawesomeproject.git\\
+                \hspace{1cm}\$ cd \char`~/repos/newawesomeproject.git\\
+                \hspace{1cm}\$ git init -$\,$-bare
+            }
+        \item[SSH server:] \url{http://gitolite.com/} (Fine-grained permissions)
+        \item[Forgejo:] \url{https://forgejo.org/} (Full-on website)
+    \end{itemize}
+}
 
 \section{Summary and cheatsheet}
 
@@ -379,6 +384,25 @@
         \hspace{1cm}\$ git remote -v \\
     }
 }
+
+\frame{
+    \frametitle{Trees, yum!}
+    \framesubtitle{git eats trees\ldots nom,nom}
+
+    Branches are cheap!
+
+    \bigskip
+    \begin{description}
+        \item[git branch -a] List branches.
+        %\item[git branch -d <name>] Delete a branch.
+        %\item[git checkout <name>] Let's climb over to that branch.
+        \item[git checkout {[}-b <newbranch>{]} <starthere>] Checkout and make a new branch.
+        \item[git merge <otherbranches>...] Trees eating trees!
+        \item[git merge -$\,$-squash <otherbranches>...] Squash trees!
+        \item[git rebase -i <branchname>] Clean up your history!
+    \end{description}
+}
+
 
 \frame{
     \frametitle{Initial checkout}
@@ -474,34 +498,6 @@
     \bigskip
 
     Collect garbage: {\tt git gc}
-}
-
-
-\section{Hosting (github, gitlab, forgejo, gitolite, \ldots)}
-
-\frame{
-    \frametitle{Hosting your git repository}
-    Companies:
-    \begin{itemize}
-        \itemindent3em
-        \item[Github:] \url{github.com}
-        \item[Gitlab:] \url{gitlab.com}
-        \item[Sourcehut:] \url{sourcehut.org}
-        \item[\ldots]
-    \end{itemize}
-    \bigskip
-    Your own:
-    \begin{itemize}
-        \itemindent3em
-        \item[SSH server:] Your own workstation/server.\\
-            {\tt
-                \hspace{1cm}\$ mkdir -p \char`~/repos/newawesomeproject.git\\
-                \hspace{1cm}\$ cd \char`~/repos/newawesomeproject.git\\
-                \hspace{1cm}\$ git init -$\,$-bare
-            }
-        \item[SSH server:] \url{http://gitolite.com/} (Fine-grained permissions)
-        \item[Forgejo:] \url{https://forgejo.org/} (Full-on website)
-    \end{itemize}
 }
 
 
